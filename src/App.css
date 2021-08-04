@@ -1,75 +1,13 @@
 * {
   box-sizing: border-box;
 }
+* {
+  font-size: 2rem;
+}
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-  .reverse {
-    animation: App-reverse infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes App-reverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.App-button-reverse {
-  margin-top: 2rem;
-  box-shadow: none;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  background-color: rgba(1, 235, 243, 0.9);
-  width: 20rem;
-  height: 5rem;
-  padding: 5px;
-  font-size: 1.9rem;
-  text-transform: capitalize;
-  transition: 0.5s ease-in-out;
-}
-.App-button-reverse:hover {
-  font-size: 2rem;
-  width: 21rem;
-  background-color: rgba(12, 242, 250, 0.9);
-  color: rgb(250, 250, 250);
-  font-weight: 510;
+  border: 1px solid red;
+  margin: 0 auto;
+  width: 90vw;
+  height: 100vh;
 }
