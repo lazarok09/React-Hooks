@@ -30,11 +30,16 @@ function App() {
       <h1>Abre o console</h1>
       {/* >Mensagem do didmount */}
       <h2>ComponentDidMount ? : </h2>
-      <p>Contador: {counter}</p>
-      <button type="button" onClick={handleClick}>
+      <h1>Contador: {counter}</h1>
+      <button className={'button'} type="button" onClick={handleClick}>
         Counter
       </button>
-      <p>Altere algum valor aqui e veja o componente sendo montado novamente no console : </p>
+      <ul>
+        {' '}
+        <h1>Ao clicar no botão counter o componente deverá : </h1>
+        <li>componente ser atualizado</li>
+      </ul>
+      <p className={'description'}>Altere algum valor aqui e veja o componente sendo montado novamente no console : </p>
     </div>
   );
 }
