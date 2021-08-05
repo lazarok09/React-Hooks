@@ -1,37 +1,34 @@
-import P from 'prop-types';
+import React from 'react';
 import './App.css';
-import React, { useCallback, useState } from 'react';
-// salva em memória do React o componente botão
-const Button = React.memo(function Button({ incrementButton }) {
-  console.log('Filho, renderizou');
-  return (
-    <button className={'button'} onClick={() => incrementButton(100)}>
-      +
-    </button>
-  );
-});
-// define as tipagens
-Button.propTypes = {
-  incrementButton: P.func,
-};
-export default function App() {
-  // botao
-  const [counter, setCounter] = useState(0);
-  // salva a função em callback para não re-renderizar quando o estado do componente App, (counter) mudar.
-  const incrementFunction = useCallback(
-    // a funçao setCounter usa o callback pra pegar o estado anterior do estado (counter)
-    (number) => {
-      setCounter((prevCounter) => prevCounter + number);
-    },
-    [],
-  );
+import { useEffect, useState } from 'react';
 
-  console.log('Pai, renderizou');
+const App = () => {
+  // states
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json())
+      .then((response) => setPosts(response));
+  }, []);
+  const showDataOnConsole = () => {
+    if (posts.length > 0) {
+      console.log(posts[0]);
+    }
+  };
+
   return (
-    // component didUpdate
-    <div className={'App'}>
-      <h1>Contador: {counter}</h1>
-      <Button incrementButton={incrementFunction} />
+    <div className={'main-container'}>
+      {posts.map((post) => {
+        return (
+          <div className={'post-card'} key={post.id}>
+            <h1>{post.title}</h1>
+            <p>{post.body}</p>
+          </div>
+        );
+      })}
+      {showDataOnConsole()}
     </div>
   );
-}
+};
+
+export default App;
