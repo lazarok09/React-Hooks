@@ -54,7 +54,7 @@ const App = () => {
       </div>
 
       <div className={'main-container'}>
-        {/* useMemo previne */}
+        {/* useMemo previne que os posts sejam renderizados a cada novo valor de estado alterado no nosso input fictício de pesquisa */}
 
         {useMemo(() => {
           return (
