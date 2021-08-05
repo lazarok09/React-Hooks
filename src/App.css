@@ -25,6 +25,22 @@
   width: 90vw;
   height: 100vh;
 }
+.input-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+input {
+  width: 30vw;
+  font-family: arial;
+  border: 1px solid black;
+}
+input:placeholder-shown {
+  font-size: 1rem;
+}
+body {
+  background: rgb(241, 241, 241, 0.5);
+}
 .button {
   color: cyan;
   background: rgb(0, 0, 0);
