@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import P from 'prop-types';
 import './App.css';
-import { useEffect, useState, useMemo } from 'react';
 
 const PostCard = ({ post }) => {
   console.log('Post card renderizou');
@@ -24,6 +23,8 @@ const App = () => {
   // states
   const [posts, setPosts] = useState([]);
   const [value, setValue] = useState('');
+  const inputRef = useRef('');
+  const renderCounter = useRef(0);
 
   /* useEffect vai executar uma vez por não ter dependencia,
    o timeOut vai ficar 2 milisegundos para executar a função e então a nossa requisição será retornada.
@@ -31,19 +32,24 @@ const App = () => {
    vai renderizar um texto 'não existem posts'
    */
   useEffect(() => {
-    setTimeout(() => {
-      // fetch API
-      fetch('https://jsonplaceholder.typicode.com/posts')
-        .then((response) => response.json())
-        .then((response) => setPosts(response));
-      // fim da fetch
-    }, 2 * 1000);
+    // fetch API
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json())
+      .then((response) => setPosts(response));
+    // fim da fetch
   }, []);
-
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  useEffect(() => {
+    renderCounter.current++;
+  });
   return (
     <div>
+      <h1>Renderizou :{renderCounter.current} </h1>
       <div className={'input-container'}>
         <input
+          ref={inputRef}
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
