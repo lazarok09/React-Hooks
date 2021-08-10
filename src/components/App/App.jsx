@@ -1,56 +1,72 @@
-import React, { useReducer } from 'react';
+import { createContext, useReducer, useRef } from 'react';
+import P from 'prop-types';
+import React, { useContext } from 'react';
 import '../../styles/App.css';
-
-// eslint-disable-next-line
-export const complextState = {
-  title: 'La Vie en Rose',
-  body: 'A Edith Piaf álbum, by 60s golden year!',
-  src: 'https://http2.mlstatic.com/D_NQ_NP_876528-MLB42441448548_072020-O.jpg',
+// data.js
+export const globalState = {
+  title: 'lorem impsum',
+  body: 'lorem body',
 };
-const App = () => {
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'muda titulo': {
-        console.log('mudou o titulo');
-        return { ...state, title: 'Mon Dieu' };
-      }
-      case 'inverter': {
-        console.log('inverteu');
-        const { body } = state;
-        return { ...state, body: body.split('').reverse().join('') };
-      }
-    }
-    return { ...state };
-  };
-  /* a função useReducer pede uma função de reducer, e o estado. Recebe o estado e uma função de dispatch,
-   que vai indicar um objeto com ações denominadas type que irão fazer coisas. */
-  const [state, dispatch] = useReducer(reducer, complextState);
+// actions.js
+export const actions = {
+  CHANGE_TITLE: 'CHANGE_TITLE',
+};
 
+// reducer.js
+export const reducer = (state, action) => {
+  switch (action.type) {
+    case actions.CHANGE_TITLE: {
+      return { ...state, title: action.payload };
+    }
+  }
+  return { ...state };
+};
+
+// AppContext.jsx
+export const Context = createContext();
+export const AppContext = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, globalState);
+
+  // função para mudar titulo
+  const changeTitle = (payload) => {
+    return dispatch({ type: actions.CHANGE_TITLE, payload });
+  };
   return (
-    <div>
-      <h1>{state.title}</h1>
-      <p>{state.body}</p>
-      <img
-        style={{ width: '200px', border: '1px solid red' }}
-        src={state.src}
-        alt={state.title}
-      />
-      <br></br>
-      <button
-        type="button"
-        style={{ width: '13rem', background: '#c5c5c5' }}
-        onClick={() => dispatch({ type: 'muda titulo' })}
-      >
-        Clique para mudar o titulo
+    <Context.Provider value={{ state, changeTitle }}>
+      {children}
+    </Context.Provider>
+  );
+};
+
+// H1 .jsx
+export const H1 = () => {
+  const context = useContext(Context);
+  return <h1>{context.state.title}</h1>;
+};
+// button .jsx
+export const Button = () => {
+  const context = useContext(Context);
+  const inputRef = useRef();
+  return (
+    <>
+      <input ref={inputRef} placeholder={'digite aqui'}></input>
+      <button onClick={() => context.changeTitle(inputRef.current.value)}>
+        muda titulo
       </button>
-      <button
-        type="button"
-        style={{ width: '13rem', background: 'red', color: 'white' }}
-        onClick={() => dispatch({ type: 'inverter' })}
-      >
-        Mudar a apresentação do parágrafo
-      </button>
-    </div>
+    </>
+  );
+};
+// prop types do App Context
+AppContext.propTypes = {
+  children: P.node,
+};
+// App .jsx
+const App = () => {
+  return (
+    <AppContext>
+      <H1 />
+      <Button />
+    </AppContext>
   );
 };
 export default App;
