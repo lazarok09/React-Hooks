@@ -43,11 +43,15 @@ const useFetch = (url, options) => {
 
     setLoading(true);
 
+    const controller = new AbortController();
+    const signal = controller.signal;
     const fetchData = async () => {
       await new Promise((r) => setTimeout(r, 1000));
-
       try {
-        const response = await fetch(urlRef.current, optionsRef.current);
+        const response = await fetch(urlRef.current, {
+          signal,
+          ...optionsRef.current,
+        });
         const jsonResult = await response.json();
         if (!wait) {
           setResult(jsonResult);
@@ -57,7 +61,7 @@ const useFetch = (url, options) => {
         if (!wait) {
           setLoading(false);
         }
-        throw e;
+        console.log(e.message);
       }
     };
 
@@ -65,6 +69,7 @@ const useFetch = (url, options) => {
     // this make our code don't break when user go to other component without wait a fetch response
     return () => {
       wait = true;
+      controller.abort();
     };
   }, [shouldLoad]);
 
@@ -73,6 +78,7 @@ const useFetch = (url, options) => {
 
 export const Home = () => {
   // eslint-disable-next-line
+  
   const [postId, setPostId] = useState('');
   const [result, loading] = useFetch(
     'https://jsonplaceholder.typicode.com/posts/' + postId,
