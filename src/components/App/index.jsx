@@ -1,16 +1,16 @@
-import React from 'react';
-import './styles.css';
 import { PostsProvider } from '../../contexts/PostsProvider';
+import { Posts } from '../../components/Posts';
 import { CounterProvider } from '../../contexts/CounterProvider';
 
-import { Button } from '../Button';
-export const App = () => {
+function App() {
   return (
-    <PostsProvider>
-      <CounterProvider>
-        <Button />
-      </CounterProvider>
-    </PostsProvider>
+    <CounterProvider>
+      <PostsProvider>
+        <div>
+          <Posts />
+        </div>
+      </PostsProvider>
+    </CounterProvider>
   );
-};
+}
 export default App;
