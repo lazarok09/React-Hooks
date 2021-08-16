@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useDebugValue, useEffect, useState } from 'react';
 
 export const useMediaQuery = (queryValue) => {
   const [match, setMatch] = useState();
 
+  useDebugValue(`Query: ${queryValue}`, (name) => {
+    return name + ' lazaro deu um oi';
+  });
   useEffect(() => {
     // isMounted - flag that controls the willUnMount on return from useEffect
     let isMounted = true;
