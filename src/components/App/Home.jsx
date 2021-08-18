@@ -1,21 +1,30 @@
+import { useState } from 'react';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import styles2 from './styles2.module.css';
 
-export const Home = () => {
-  const huge = useMediaQuery('(min-width: 980px)');
-  const big = useMediaQuery('(max-width: 979px) and (min-width: 768px)');
-  const medium = useMediaQuery('(max-width: 767px) and (min-width: 321px)');
-  const small = useMediaQuery('(max-width: 321px)');
+import P from 'prop-types';
 
-  const background = huge
-    ? 'green'
-    : big
-    ? 'red'
-    : medium
-    ? 'yellow'
-    : small
-    ? 'purple'
-    : null;
-
-  return <div style={{ fontSize: '60px', background }}>Oi</div>;
+export const Home = ({ text }) => {
+  const [counter, setCounter] = useState(0);
+  const handleClick = () => {
+    setCounter((counter) => counter + 1);
+  };
+  if (counter > 5) {
+    throw new Error('oops, invalid operation :(');
+  }
+  return (
+    <div className={styles2.body}>
+      <buton className={styles2.button} onClick={handleClick}>
+        click for counter
+      </buton>
+      <p className={styles2.paragraph_counter}>
+        {text}: {counter}
+      </p>
+    </div>
+  );
 };
 export default Home;
+Home.propTypes = {
+  text: P.string.isRequired,
+  props: P.node,
+};

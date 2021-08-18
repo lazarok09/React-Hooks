@@ -1,0 +1,30 @@
+.main {
+  width: 80vw;
+  margin: 0 auto;
+  background: rgb(241, 241, 241);
+}
+.body {
+  margin: 0 auto;
+  margin-top: 10px;
+  background: gray;
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+.button {
+  margin-top: 1rem 0;
+  width: 100px;
+  height: auto;
+  text-align: center;
+  margin: 10px 10px;
+  color: white;
+  background: red;
+  padding: 1rem;
+  border-radius: 25px;
+  font-weight: 550;
+  font-family: 'Arial';
+}
+.paragraph_counter {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
